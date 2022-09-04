@@ -9,7 +9,7 @@ import org.jboss.logging.Logger;
 public class JsGatewayException extends Exception {
 
 	private static final long serialVersionUID = 1L;
-	private static final Logger LOGGER = Logger.getLogger("Telegram Log");
+	private static final Logger LOGGER = Logger.getLogger("JsGatewayException");
 
 	/**
 	 * 
