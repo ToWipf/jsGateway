@@ -1,6 +1,9 @@
 package org.wipf.jsGateway.rest.main;
 
+import java.io.IOException;
+
 import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -11,6 +14,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import org.wipf.jsGateway.logic.base.Gateway;
 import org.wipf.jsGateway.logic.base.MainHome;
 
 /**
@@ -23,18 +27,17 @@ import org.wipf.jsGateway.logic.base.MainHome;
 @ApplicationScoped
 public class AllRest {
 
-	@GET
-	@Path("{path}")
-	@Produces(MediaType.TEXT_PLAIN)
-	public Response all(@PathParam("path") String sPath) {
-		return Response.ok("All " + sPath).build();
-	}
+	@Inject
+	Gateway gateway;
 
 	@GET
-	@Path("{path}/{path2}")
+	@Path("{path:.*}")
 	@Produces(MediaType.TEXT_PLAIN)
-	public Response all2(@PathParam("path") String sPath, @PathParam("path2") String sPath2) {
-		return Response.ok("All " + sPath + " and " + sPath2).build();
+	public Response getFallback(@PathParam("path") String sPath) throws IOException {
+
+		return gateway.doPath(sPath);
+
+		// return Response.ok("All " + sPath).build();
 	}
 
 	@GET
